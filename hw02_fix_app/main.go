@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 
-	"github.com/fixme_my_friend/hw02_fix_app/printer"
-	"github.com/fixme_my_friend/hw02_fix_app/reader"
-	"github.com/fixme_my_friend/hw02_fix_app/types"
+	"github.com/ch1s7ya/otus_go_basic_hw/hw02_fix_app/printer"
+	"github.com/ch1s7ya/otus_go_basic_hw/hw02_fix_app/reader"
+	"github.com/ch1s7ya/otus_go_basic_hw/hw02_fix_app/types"
 )
 
 func main() {
@@ -22,8 +22,9 @@ func main() {
 	}
 
 	staff, err = reader.ReadJSON(path)
-
-	fmt.Print(err)
+	if err != nil {
+		fmt.Printf("Error: %v\n", err)
+	}
 
 	printer.PrintStaff(staff)
 }
