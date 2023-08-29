@@ -1,12 +1,15 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func main() {
 	boardSize := 8
 	black := "#"
 	white := " "
-	var boardChess string
+	var boardChess strings.Builder
 
 	fmt.Printf("Enter size of board: ")
 	fmt.Scanln(&boardSize)
@@ -14,13 +17,13 @@ func main() {
 	for i := 0; i < boardSize; i++ {
 		for j := 0; j < boardSize; j++ {
 			if (i+j)%2 == 0 {
-				boardChess += white
+				boardChess.WriteString(white)
 			} else {
-				boardChess += black
+				boardChess.WriteString(black)
 			}
 		}
-		boardChess += "\n"
+		boardChess.WriteString("\n")
 	}
 
-	fmt.Println(boardChess)
+	fmt.Println(boardChess.String())
 }
