@@ -2,10 +2,10 @@ package main
 
 import "fmt"
 
-type Mode int
+type ComparatorMode int
 
 const (
-	Year Mode = iota
+	Year ComparatorMode = iota
 	Size
 	Rate
 )
@@ -19,35 +19,89 @@ type Book struct {
 	rate   float64
 }
 
-type ComparisonMode struct {
-	mode Mode
+type Comparator struct {
+	mode ComparatorMode
 }
 
-func (b *Book) NewBook(id int, title string, author string, year int, size int, rate float64) {
+func (b *Book) NewBook(id int, title string, author string, year int, size int, rate float64) *Book {
 	b.id = id
 	b.title = title
 	b.author = author
 	b.year = year
 	b.size = size
 	b.rate = rate
+
+	return b
 }
 
 func (b Book) GetBook() Book {
 	return b
 }
 
-func (cm *ComparisonMode) SetComparisonMode(mode Mode) {
-	cm.mode = mode
+func (b *Book) SetId(id int) {
+	b.id = id
 }
 
-func (cm *ComparisonMode) CompareBooks(book1, book2 Book) bool {
+func (b *Book) SetTitle(title string) {
+	b.title = title
+}
+
+func (b *Book) SetAuthor(author string) {
+	b.author = author
+}
+
+func (b *Book) SetYear(year int) {
+	b.year = year
+}
+
+func (b *Book) SetSize(size int) {
+	b.size = size
+}
+
+func (b *Book) SetRate(rate float64) {
+	b.rate = rate
+}
+
+func (b Book) GetId() int {
+	return b.id
+}
+
+func (b Book) GetTitle() string {
+	return b.title
+}
+
+func (b Book) GetAuthor() string {
+	return b.author
+}
+
+func (b Book) GetYear() int {
+	return b.year
+}
+
+func (b Book) GetSize() int {
+	return b.size
+}
+
+func (b Book) GetRate() float64 {
+	return b.rate
+}
+
+func (c *Comparator) NewComparator(mode ComparatorMode) *Comparator {
+	return &Comparator{mode: mode}
+}
+
+func (c *Comparator) SetComparisonMode(mode ComparatorMode) {
+	c.mode = mode
+}
+
+func (c *Comparator) CompareBooks(book1, book2 Book) bool {
 	var ComparisonResult bool
 	switch {
-	case cm.mode == 0:
+	case c.mode == 0:
 		ComparisonResult = book1.year >= book2.year
-	case cm.mode == 1:
+	case c.mode == 1:
 		ComparisonResult = book1.size >= book2.size
-	case cm.mode == 2:
+	case c.mode == 2:
 		ComparisonResult = book1.rate >= book2.rate
 	}
 	return ComparisonResult
@@ -60,14 +114,14 @@ func main() {
 
 	fmt.Printf("First book is: %v\nSecond book is: %v\n", book1.GetBook(), book2.GetBook())
 
-	var cm ComparisonMode
-	cm.SetComparisonMode(Year)
+	var c Comparator
+	c.NewComparator(Year)
 
-	fmt.Println("Is year of book1 more year of book2: ", cm.CompareBooks(book1, book2)) // True
+	fmt.Println("Is year of book1 more year of book2: ", c.CompareBooks(book1, book2)) // True
 
-	cm.SetComparisonMode(Size)
-	fmt.Println("Is size of book1 more size of book2: ", cm.CompareBooks(book1, book2)) // False
+	c.SetComparisonMode(Size)
+	fmt.Println("Is size of book1 more size of book2: ", c.CompareBooks(book1, book2)) // False
 
-	cm.SetComparisonMode(Rate)
-	fmt.Println("Is rate of book1 more rate of book2: ", cm.CompareBooks(book1, book2)) // True
+	c.SetComparisonMode(Rate)
+	fmt.Println("Is rate of book1 more rate of book2: ", c.CompareBooks(book1, book2)) // True
 }
