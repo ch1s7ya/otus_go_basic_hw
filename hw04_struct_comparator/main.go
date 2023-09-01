@@ -23,22 +23,15 @@ type Comparator struct {
 	mode ComparatorMode
 }
 
-func (b *Book) NewBook(id int, title string, author string, year int, size int, rate float64) *Book {
-	b.id = id
-	b.title = title
-	b.author = author
-	b.year = year
-	b.size = size
-	b.rate = rate
-
-	return b
+func NewBook(id int, title string, author string, year int, size int, rate float64) *Book {
+	return &Book{id, title, author, year, size, rate}
 }
 
 func (b Book) GetBook() Book {
 	return b
 }
 
-func (b *Book) SetId(id int) {
+func (b *Book) SetID(id int) {
 	b.id = id
 }
 
@@ -62,7 +55,7 @@ func (b *Book) SetRate(rate float64) {
 	b.rate = rate
 }
 
-func (b Book) GetId() int {
+func (b Book) GetID() int {
 	return b.id
 }
 
@@ -86,7 +79,7 @@ func (b Book) GetRate() float64 {
 	return b.rate
 }
 
-func (c *Comparator) NewComparator(mode ComparatorMode) *Comparator {
+func NewComparator(mode ComparatorMode) *Comparator {
 	return &Comparator{mode: mode}
 }
 
@@ -108,20 +101,18 @@ func (c *Comparator) CompareBooks(book1, book2 Book) bool {
 }
 
 func main() {
-	var book1, book2 Book
-	book1.NewBook(1, "1984", "George Orwell", 1949, 328, 5.0)
-	book2.NewBook(2, "Three Comrades", "Erich Maria Remarque", 1937, 498, 5.0)
+	book1 := NewBook(1, "1984", "George Orwell", 1949, 328, 5.0)
+	book2 := NewBook(2, "Three Comrades", "Erich Maria Remarque", 1937, 498, 5.0)
 
 	fmt.Printf("First book is: %v\nSecond book is: %v\n", book1.GetBook(), book2.GetBook())
 
-	var c Comparator
-	c.NewComparator(Year)
+	c := NewComparator(Year)
 
-	fmt.Println("Is year of book1 more year of book2: ", c.CompareBooks(book1, book2)) // True
+	fmt.Println("Is year of book1 more year of book2: ", c.CompareBooks(*book1, *book2)) // True
 
 	c.SetComparisonMode(Size)
-	fmt.Println("Is size of book1 more size of book2: ", c.CompareBooks(book1, book2)) // False
+	fmt.Println("Is size of book1 more size of book2: ", c.CompareBooks(*book1, *book2)) // False
 
 	c.SetComparisonMode(Rate)
-	fmt.Println("Is rate of book1 more rate of book2: ", c.CompareBooks(book1, book2)) // True
+	fmt.Println("Is rate of book1 more rate of book2: ", c.CompareBooks(*book1, *book2)) // True
 }
