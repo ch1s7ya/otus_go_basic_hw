@@ -27,10 +27,6 @@ func NewBook(id int, title string, author string, year int, size int, rate float
 	return &Book{id, title, author, year, size, rate}
 }
 
-func (b Book) GetBook() Book {
-	return b
-}
-
 func (b *Book) SetID(id int) {
 	b.id = id
 }
@@ -55,27 +51,27 @@ func (b *Book) SetRate(rate float64) {
 	b.rate = rate
 }
 
-func (b Book) GetID() int {
+func (b *Book) ID() int {
 	return b.id
 }
 
-func (b Book) GetTitle() string {
+func (b *Book) Title() string {
 	return b.title
 }
 
-func (b Book) GetAuthor() string {
+func (b *Book) Author() string {
 	return b.author
 }
 
-func (b Book) GetYear() int {
+func (b *Book) Year() int {
 	return b.year
 }
 
-func (b Book) GetSize() int {
+func (b *Book) Size() int {
 	return b.size
 }
 
-func (b Book) GetRate() float64 {
+func (b *Book) Rate() float64 {
 	return b.rate
 }
 
@@ -104,7 +100,7 @@ func main() {
 	book1 := NewBook(1, "1984", "George Orwell", 1949, 328, 5.0)
 	book2 := NewBook(2, "Three Comrades", "Erich Maria Remarque", 1937, 498, 5.0)
 
-	fmt.Printf("First book is: %v\nSecond book is: %v\n", book1.GetBook(), book2.GetBook())
+	fmt.Printf("First book is: %v\nSecond book is: %v\n", book1, book2)
 
 	c := NewComparator(Year)
 
