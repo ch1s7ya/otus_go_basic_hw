@@ -34,13 +34,25 @@ func (t *triangle) area() float64 {
 }
 
 func calculateArea(s any) float64 {
-	shape := s.(Shape)
+	shape, ok := s.(Shape)
+
+	if !ok {
+		fmt.Println("Object isn't Shape")
+	}
 
 	return shape.area()
 }
 
 func main() {
-	c := circle{radius: 2}
-	a := calculateArea(c)
-	fmt.Println(a)
+	c := circle{radius: 5}
+	a := calculateArea(&c)
+	fmt.Printf("Круг: радиус %.2f\nПлощадь: %.2f\n", c.radius, a)
+
+	r := rectangle{10, 5}
+	a = calculateArea(&r)
+	fmt.Printf("Прямоугольник: высота %.2f, ширина: %.2f\nПлощадь: %.2f\n", r.length, r.width, a)
+
+	t := triangle{8, 6}
+	a = calculateArea(&t)
+	fmt.Printf("Треугольник: высота %.2f, основание: %.2f\nПлощадь: %.2f\n", t.length, t.base, a)
 }
