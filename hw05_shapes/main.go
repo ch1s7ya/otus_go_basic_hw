@@ -37,7 +37,7 @@ func calculateArea(s any) (float64, error) {
 	shape, ok := s.(Shape)
 
 	if !ok {
-		return 0, fmt.Errorf("Object isn't Shape")
+		return 0, fmt.Errorf("object isn't Shape")
 	}
 
 	return shape.area(), nil
@@ -70,7 +70,8 @@ func main() {
 		b float64
 	}{
 		a: 2,
-		b: 5}
+		b: 5,
+	}
 	_, err = calculateArea(&someObject)
 	if err != nil {
 		fmt.Println(err)
