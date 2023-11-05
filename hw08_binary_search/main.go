@@ -2,11 +2,9 @@ package main
 
 import (
 	"fmt"
-	"sort"
 )
 
 func BinarySearch(s []int, searchElement int) (bool, error) {
-	sort.Ints(s)
 	leftElement := 0
 	rightElement := len(s) - 1
 	if searchElement > s[rightElement] || searchElement < s[leftElement] {

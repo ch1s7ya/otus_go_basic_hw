@@ -23,15 +23,6 @@ func TestBinarySearch(t *testing.T) {
 			wantErr: false,
 		},
 		{
-			name: "Unsorted array from 0 to 9",
-			args: args{
-				[]int{7, 1, 9, 5, 4, 3, 6, 0, 8, 2},
-				7,
-			},
-			want:    true,
-			wantErr: false,
-		},
-		{
 			name: "Search element is out of range",
 			args: args{
 				[]int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
