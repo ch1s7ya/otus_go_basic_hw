@@ -4,11 +4,13 @@ import (
 	"fmt"
 )
 
-func BinarySearch(s []int, searchElement int) (bool, error) {
+const elementNotFound = -1
+
+func BinarySearch(s []int, searchElement int) int {
 	leftElement := 0
 	rightElement := len(s) - 1
 	if searchElement > s[rightElement] || searchElement < s[leftElement] {
-		return false, fmt.Errorf("search element is out of range")
+		return elementNotFound
 	}
 	for leftElement <= rightElement {
 		middleElement := (leftElement + rightElement) / 2
@@ -18,10 +20,10 @@ func BinarySearch(s []int, searchElement int) (bool, error) {
 		case searchElement > s[middleElement]:
 			leftElement = middleElement
 		case searchElement == s[middleElement]:
-			return true, nil
+			return middleElement
 		}
 	}
-	return false, nil
+	return elementNotFound
 }
 
 func main() {
