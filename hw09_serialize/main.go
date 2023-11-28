@@ -5,7 +5,6 @@ import (
 
 	"github.com/ch1s7ya/otus_go_basic_hw/hw09_serialize/json"
 	"github.com/ch1s7ya/otus_go_basic_hw/hw09_serialize/protobuf"
-
 	"google.golang.org/protobuf/proto"
 )
 
@@ -31,7 +30,7 @@ func main() {
 	fmt.Printf("%#v\n", book2)
 
 	book3 := protobuf.Book{
-		Id:     1,
+		ID:     1,
 		Title:  "All Quiet on the Western Front",
 		Author: "Erich Maria Remarque",
 		Year:   1929,
@@ -77,7 +76,7 @@ func main() {
 
 	// booksp := []protobuf.Book{
 	// 	{
-	// 		Id:     1,
+	// 		ID:     1,
 	// 		Title:  "All Quiet on the Western Front",
 	// 		Author: "Erich Maria Remarque",
 	// 		Year:   1929,
@@ -85,7 +84,7 @@ func main() {
 	// 		Rate:   5.0,
 	// 	},
 	// 	{
-	// 		Id:     2,
+	// 		ID:     2,
 	// 		Title:  "Three Comrades",
 	// 		Author: "Erich Maria Remarque",
 	// 		Year:   1936,
@@ -93,7 +92,7 @@ func main() {
 	// 		Rate:   5.0,
 	// 	},
 	// 	{
-	// 		Id:     3,
+	// 		ID:     3,
 	// 		Title:  "Animal Farm",
 	// 		Author: "George Orwell",
 	// 		Year:   1945,

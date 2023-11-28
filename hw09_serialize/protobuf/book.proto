@@ -4,7 +4,7 @@ package main;
 option go_package = "./;protobuf";
 
 message Book {
-    int64 id = 1;
+    int64 ID = 1;
     string title = 2;
     string author = 3;
     int64 year = 4;

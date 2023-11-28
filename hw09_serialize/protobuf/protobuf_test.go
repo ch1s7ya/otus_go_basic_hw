@@ -8,7 +8,7 @@ import (
 
 func TestBook_Marshal(t *testing.T) {
 	type fields struct {
-		Id     int64
+		ID     int64
 		Title  string
 		Author string
 		Year   int64
@@ -23,7 +23,7 @@ func TestBook_Marshal(t *testing.T) {
 		{
 			name: "Murshul protobuf book",
 			fields: fields{
-				Id:     1,
+				ID:     1,
 				Title:  "All Quiet on the Western Front",
 				Author: "Erich Maria Remarque",
 				Year:   1929,
@@ -36,7 +36,7 @@ func TestBook_Marshal(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			b := &Book{
-				Id:     tt.fields.Id,
+				ID:     tt.fields.ID,
 				Title:  tt.fields.Title,
 				Author: tt.fields.Author,
 				Year:   tt.fields.Year,
@@ -75,7 +75,7 @@ func TestBookshelf_MarshalSlice(t *testing.T) {
 			fields: fields{
 				Book: []*Book{
 					{
-						Id:     1,
+						ID:     1,
 						Title:  "All Quiet on the Western Front",
 						Author: "Erich Maria Remarque",
 						Year:   1929,
@@ -83,7 +83,7 @@ func TestBookshelf_MarshalSlice(t *testing.T) {
 						Rate:   5.0,
 					},
 					{
-						Id:     2,
+						ID:     2,
 						Title:  "Three Comrades",
 						Author: "Erich Maria Remarque",
 						Year:   1936,
@@ -91,7 +91,7 @@ func TestBookshelf_MarshalSlice(t *testing.T) {
 						Rate:   5.0,
 					},
 					{
-						Id:     3,
+						ID:     3,
 						Title:  "Animal Farm",
 						Author: "George Orwell",
 						Year:   1945,
