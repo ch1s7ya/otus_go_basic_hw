@@ -1,36 +1,16 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
+
+	"github.com/ch1s7ya/otus_go_basic_hw/hw09_serialize/json"
+	"github.com/ch1s7ya/otus_go_basic_hw/hw09_serialize/protobuf"
+
+	"google.golang.org/protobuf/proto"
 )
 
-type Book struct {
-	ID     int     `json:"id"`
-	Title  string  `json:"title"`
-	Author string  `json:"author"`
-	Year   int     `json:"year"`
-	Size   int     `json:"size"`
-	Rate   float32 `json:"rate"`
-}
-
-func (b *Book) MarshalJSON() ([]byte, error) {
-	return json.Marshal(*b)
-}
-
-func (b *Book) UnmarshalJSON(data []byte) error {
-	type tmpBook Book
-	var book tmpBook
-	err := json.Unmarshal(data, &book)
-	if err != nil {
-		return err
-	}
-	*b = Book(book)
-	return nil
-}
-
 func main() {
-	book1 := Book{
+	book1 := json.Book{
 		ID:     1,
 		Title:  "All Quiet on the Western Front",
 		Author: "Erich Maria Remarque",
@@ -40,13 +20,88 @@ func main() {
 	}
 
 	d, _ := book1.MarshalJSON()
-	fmt.Printf("%s\n", string(d))
+	fmt.Printf("%s\n", d)
 
-	var book2 Book
+	var book2 json.Book
 
 	err := book2.UnmarshalJSON(d)
 	if err != nil {
 		fmt.Printf("%s", err)
 	}
 	fmt.Printf("%#v\n", book2)
+
+	book3 := protobuf.Book{
+		Id:     1,
+		Title:  "All Quiet on the Western Front",
+		Author: "Erich Maria Remarque",
+		Year:   1929,
+		Size:   200,
+		Rate:   5.0,
+	}
+
+	marshalled, err := proto.Marshal(&book3)
+	if err != nil {
+		fmt.Printf("%s\n", err)
+	}
+	fmt.Printf("Marshaled:\n%s\n", marshalled)
+
+	books := []json.Book{
+		{
+			ID:     1,
+			Title:  "All Quiet on the Western Front",
+			Author: "Erich Maria Remarque",
+			Year:   1929,
+			Size:   200,
+			Rate:   5.0,
+		},
+		{
+			ID:     2,
+			Title:  "Three Comrades",
+			Author: "Erich Maria Remarque",
+			Year:   1936,
+			Size:   498,
+			Rate:   5.0,
+		},
+		{
+			ID:     3,
+			Title:  "Animal Farm",
+			Author: "George Orwell",
+			Year:   1945,
+			Size:   92,
+			Rate:   5.0,
+		},
+	}
+
+	b, _ := json.MarshalSlice(books)
+	fmt.Printf("Marshaled slice of book:\n%s\n", b)
+
+	// booksp := []protobuf.Book{
+	// 	{
+	// 		Id:     1,
+	// 		Title:  "All Quiet on the Western Front",
+	// 		Author: "Erich Maria Remarque",
+	// 		Year:   1929,
+	// 		Size:   200,
+	// 		Rate:   5.0,
+	// 	},
+	// 	{
+	// 		Id:     2,
+	// 		Title:  "Three Comrades",
+	// 		Author: "Erich Maria Remarque",
+	// 		Year:   1936,
+	// 		Size:   498,
+	// 		Rate:   5.0,
+	// 	},
+	// 	{
+	// 		Id:     3,
+	// 		Title:  "Animal Farm",
+	// 		Author: "George Orwell",
+	// 		Year:   1945,
+	// 		Size:   92,
+	// 		Rate:   5.0,
+	// 	},
+	// }
+
+	// bp, _ := json.MarshalSlice(&booksp)
+	// fmt.Printf("Marshaled slice of book:\n%s\n", string(bp))
 }

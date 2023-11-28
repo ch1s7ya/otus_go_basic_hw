@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package main;
+option go_package = "./;protobuf";
+
+message Book {
+    int64 id = 1;
+    string title = 2;
+    string author = 3;
+    int64 year = 4;
+    int64 size = 5;
+    float rate = 6;
+}
+
+message Bookshelf {
+    repeated Book book = 1;
+}
