@@ -1,6 +1,8 @@
 package json
 
 import (
+	"bytes"
+	"encoding/json"
 	"reflect"
 	"testing"
 
@@ -32,7 +34,16 @@ func TestBook_MarshalJSON(t *testing.T) {
 				Size:   200,
 				Rate:   5.0,
 			},
-			want:    []byte(`{"id":1,"title":"All Quiet on the Western Front","author":"Erich Maria Remarque","year":1929,"size":200,"rate":5}`),
+			want: []byte(`
+				{
+					"id":1,
+					"title":"All Quiet on the Western Front",
+					"author":"Erich Maria Remarque",
+					"year":1929,
+					"size":200,
+					"rate":5
+				}
+			`),
 			wantErr: false,
 		},
 	}
@@ -51,7 +62,12 @@ func TestBook_MarshalJSON(t *testing.T) {
 				t.Errorf("Book.MarshalJSON() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			if !reflect.DeepEqual(got, tt.want) {
+			wantCompat := &bytes.Buffer{}
+			err = json.Compact(wantCompat, tt.want)
+			if err != nil {
+				t.Errorf("%v", err)
+			}
+			if !reflect.DeepEqual(got, wantCompat.Bytes()) {
 				t.Errorf("Book.MarshalJSON() = %v, want %v", got, tt.want)
 			}
 		})
@@ -87,7 +103,16 @@ func TestBook_UnmarshalJSON(t *testing.T) {
 				Rate:   5.0,
 			},
 			args: args{
-				data: []byte(`{"id":1,"title":"All Quiet on the Western Front","author":"Erich Maria Remarque","year":1929,"size":200,"rate":5}`),
+				data: []byte(`
+					{
+						"id":1,
+						"title":"All Quiet on the Western Front",
+						"author":"Erich Maria Remarque",
+						"year":1929,
+						"size":200,
+						"rate":5
+					}
+				`),
 			},
 			wantErr: false,
 		},
@@ -150,7 +175,34 @@ func TestMarshalSlice(t *testing.T) {
 					},
 				},
 			},
-			want:    []byte(`[{"id":1,"title":"All Quiet on the Western Front","author":"Erich Maria Remarque","year":1929,"size":200,"rate":5},{"id":2,"title":"Three Comrades","author":"Erich Maria Remarque","year":1936,"size":498,"rate":5},{"id":3,"title":"Animal Farm","author":"George Orwell","year":1945,"size":92,"rate":5}]`),
+			want: []byte(`
+				[
+					{
+						"id":1,
+						"title":"All Quiet on the Western Front",
+						"author":"Erich Maria Remarque",
+						"year":1929,
+						"size":200,
+						"rate":5
+					},
+					{
+						"id":2,
+						"title":"Three Comrades",
+						"author":"Erich Maria Remarque",
+						"year":1936,
+						"size":498,
+						"rate":5
+					},
+					{
+						"id":3,
+						"title":"Animal Farm",
+						"author":"George Orwell",
+						"year":1945,
+						"size":92,
+						"rate":5
+					}
+				]
+			`),
 			wantErr: false,
 		},
 	}
@@ -161,7 +213,12 @@ func TestMarshalSlice(t *testing.T) {
 				t.Errorf("MarshalSlice() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			if !reflect.DeepEqual(got, tt.want) {
+			wantCompat := &bytes.Buffer{}
+			err = json.Compact(wantCompat, tt.want)
+			if err != nil {
+				t.Errorf("%v", err)
+			}
+			if !reflect.DeepEqual(got, wantCompat.Bytes()) {
 				t.Errorf("MarshalSlice() = %v, want %v", got, tt.want)
 			}
 		})
@@ -181,7 +238,34 @@ func TestUnmarshalSlice(t *testing.T) {
 		{
 			name: "Unmarshal slice of book",
 			args: args{
-				b: []byte(`[{"id":1,"title":"All Quiet on the Western Front","author":"Erich Maria Remarque","year":1929,"size":200,"rate":5},{"id":2,"title":"Three Comrades","author":"Erich Maria Remarque","year":1936,"size":498,"rate":5},{"id":3,"title":"Animal Farm","author":"George Orwell","year":1945,"size":92,"rate":5}]`),
+				b: []byte(`
+					[
+						{
+							"id":1,
+							"title":"All Quiet on the Western Front",
+							"author":"Erich Maria Remarque",
+							"year":1929,
+							"size":200,
+							"rate":5
+						},
+						{
+							"id":2,
+							"title":"Three Comrades",
+							"author":"Erich Maria Remarque",
+							"year":1936,
+							"size":498,
+							"rate":5
+						},
+						{
+							"id":3,
+							"title":"Animal Farm",
+							"author":"George Orwell",
+							"year":1945,
+							"size":92,
+							"rate":5
+						}
+					]
+				`),
 			},
 			want: []Book{
 				{
