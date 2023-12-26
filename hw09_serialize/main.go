@@ -18,14 +18,17 @@ func main() {
 		Rate:   5.0,
 	}
 
-	d, _ := book1.MarshalJSON()
+	d, err := book1.MarshalJSON()
+	if err != nil {
+		fmt.Printf("%s\n", err)
+	}
 	fmt.Printf("%s\n", d)
 
 	var book2 json.Book
 
-	err := book2.UnmarshalJSON(d)
+	err = book2.UnmarshalJSON(d)
 	if err != nil {
-		fmt.Printf("%s", err)
+		fmt.Printf("%s\n", err)
 	}
 	fmt.Printf("%#v\n", book2)
 
@@ -71,7 +74,10 @@ func main() {
 		},
 	}
 
-	b, _ := json.MarshalSlice(books)
+	b, err := json.MarshalSlice(books)
+	if err != nil {
+		fmt.Printf("%s\n", err)
+	}
 	fmt.Printf("Marshaled slice of book:\n%s\n", b)
 
 	// booksp := []protobuf.Book{
