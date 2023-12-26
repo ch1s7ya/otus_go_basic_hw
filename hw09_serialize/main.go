@@ -21,16 +21,18 @@ func main() {
 	d, err := book1.MarshalJSON()
 	if err != nil {
 		fmt.Printf("%s\n", err)
+	} else {
+		fmt.Printf("%s\n", d)
 	}
-	fmt.Printf("%s\n", d)
 
 	var book2 json.Book
 
 	err = book2.UnmarshalJSON(d)
 	if err != nil {
 		fmt.Printf("%s\n", err)
+	} else {
+		fmt.Printf("%#v\n", book2)
 	}
-	fmt.Printf("%#v\n", book2)
 
 	book3 := protobuf.Book{
 		ID:     1,
@@ -44,8 +46,9 @@ func main() {
 	marshalled, err := proto.Marshal(&book3)
 	if err != nil {
 		fmt.Printf("%s\n", err)
+	} else {
+		fmt.Printf("Marshaled:\n%s\n", marshalled)
 	}
-	fmt.Printf("Marshaled:\n%s\n", marshalled)
 
 	books := []json.Book{
 		{
@@ -77,8 +80,9 @@ func main() {
 	b, err := json.MarshalSlice(books)
 	if err != nil {
 		fmt.Printf("%s\n", err)
+	} else {
+		fmt.Printf("Marshaled slice of book:\n%s\n", b)
 	}
-	fmt.Printf("Marshaled slice of book:\n%s\n", b)
 
 	// booksp := []protobuf.Book{
 	// 	{
