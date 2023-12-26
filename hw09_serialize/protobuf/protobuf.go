@@ -12,10 +12,10 @@ func (r *Book) Unmarshal(data []byte) error {
 	return proto.Unmarshal(data, r)
 }
 
-func (b *Bookshelf) MarshalSlice() ([]byte, error) {
+func (b *BookSlice) MarshalSlice() ([]byte, error) {
 	return proto.Marshal(b)
 }
 
-func (b *Bookshelf) UnmarshalSlice(data []byte) error {
+func (b *BookSlice) UnmarshalSlice(data []byte) error {
 	return proto.Unmarshal(data, b)
 }

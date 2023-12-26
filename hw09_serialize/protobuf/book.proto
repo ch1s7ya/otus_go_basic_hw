@@ -12,6 +12,6 @@ message Book {
     float rate = 6;
 }
 
-message Bookshelf {
-    repeated Book book = 1;
+message BookSlice {
+    repeated Book books = 1;
 }

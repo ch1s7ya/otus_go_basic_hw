@@ -104,20 +104,20 @@ func TestBookshelf_MarshalSlice(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			b := &Bookshelf{
-				Book: tt.fields.Book,
+			b := &BookSlice{
+				Books: tt.fields.Book,
 			}
 			got, err := b.MarshalSlice()
 			if (err != nil) != tt.wantErr {
-				t.Errorf("Bookshelf.MarshalSlice() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("BookSlice.MarshalSlice() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			bookshelf := Bookshelf{}
-			err = bookshelf.UnmarshalSlice(got)
+			bookslice := BookSlice{}
+			err = bookslice.UnmarshalSlice(got)
 			if err != nil {
-				t.Errorf("Bookshelf.Unmarshal() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("BookSlice.Unmarshal() error = %v, wantErr %v", err, tt.wantErr)
 			}
-			if !proto.Equal(b, &bookshelf) {
+			if !proto.Equal(b, &bookslice) {
 				t.Errorf("Objects isn't equal")
 			}
 		})
